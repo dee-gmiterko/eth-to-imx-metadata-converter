@@ -13,5 +13,9 @@ Tool for converting ERC-721 metadata format into Immutable X compatible format
 
 To use it:
 
+    $ eth2imx-meta [sorce directory] [destination directory]
+    
+For further options see
+
     $ eth2imx-meta --help
 
