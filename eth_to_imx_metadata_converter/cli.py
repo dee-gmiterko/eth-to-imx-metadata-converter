@@ -1,6 +1,6 @@
 import click
 
-from metadata_converter import MetadataConverter
+from eth_to_imx_metadata_converter.metadata_converter import MetadataConverter
 
 @click.command()
 @click.argument('source-folder', default='source', required=True)

@@ -7,7 +7,7 @@ dependencies = ['click']
 
 setup(
     name='eth-to-imx-metadata-converter',
-    version='0.1.0',
+    version='0.1.1',
     url='https://github.com/dee-gmiterko/eth-to-imx-metadata-converter',
     license='BSD',
     author='Dominik Gmiterko',
