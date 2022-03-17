@@ -5,15 +5,23 @@ from glob import glob
 
 class MetadataConverter():
 
-    def __init__(self, animation_url_mime_type):
+    def __init__(self, animation_url_mime_type, compact):
         self.animation_url_mime_type = animation_url_mime_type
+        self.compact = compact
 
     def convert(self, source_folder, destination_folder):
         os.makedirs(destination_folder, exist_ok=True)
 
-        for src_file in glob(os.path.join(source_folder, "*.json")):
+        files = glob(os.path.join(source_folder, "*.json"))
+        if len(files) == 0:
+            raise ValueError("No files to convert found")
+
+        for src_file in files:
             dst_file = os.path.join(destination_folder, os.path.basename(src_file))
-            self.convert_file(src_file, dst_file)
+            try:
+                self.convert_file(src_file, dst_file)
+            except Exception as e:
+                raise ValueError(f"Cannot convert {os.path.basename(src_file)}!") from e
 
     def convert_file(self, src_file, dst_file):
         with open(src_file, "r", encoding="utf-8") as f:
@@ -33,7 +41,7 @@ class MetadataConverter():
         imx_metadata.update(self.convert_attributes(eth_metadata.get("attributes")))
 
         with open(dst_file, "w", encoding="utf-8") as f:
-            json.dump(imx_metadata, f)
+            json.dump(imx_metadata, f, indent=None if self.compact else 4)
 
     def convert_animation(self, animation_url):
         if not animation_url:

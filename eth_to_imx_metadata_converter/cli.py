@@ -8,9 +8,10 @@ from eth_to_imx_metadata_converter.metadata_converter import MetadataConverter
 @click.option('--animation-url-mime-type', type=click.Choice(
     ['application/vnd.apple.mpegurl', 'video/mp4', 'video/webm']
 ), required=False)
-def main(source_folder, destination_folder, animation_url_mime_type):
+@click.option('--compact/--pretty', default=False)
+def main(source_folder, destination_folder, animation_url_mime_type, compact):
     """Tool for converting ERC-721 metadata format into Immutable X compatible format"""
-    metadata_converter = MetadataConverter(animation_url_mime_type)
+    metadata_converter = MetadataConverter(animation_url_mime_type, compact)
     metadata_converter.convert(source_folder, destination_folder)
     click.echo('Metadata converted')
 
